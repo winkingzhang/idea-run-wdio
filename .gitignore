@@ -1,0 +1,274 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# vercel
+.vercel
+
+/.*/
+.idea
+node_modules
+~ci.list.txt
+~ci.log.txt
+~ci.errors.txt
+*.stackdump
+*.bak
+*.old
+package-lock.json
+test/**/*.js
+test/**/*.d.ts
+test/*.js
+test/*.d.ts
+test/temp*
+test/**/*.map
+tests/**/*.js
+tests/**/*.d.ts
+tests/*.js
+tests/*.d.ts
+tests/temp*
+tests/**/*.map
+bin/*.d.ts
+bin/**/*.d.ts
+/packages/*/bin/*.d.ts
+/packages/*/test/**/*.js
+/packages/*/test/**/*.d.ts
+/packages/*/test/*.js
+/packages/*/test/*.d.ts
+/packages/*/test/temp*
+/packages/*/tests/**/*.js
+/packages/*/tests/**/*.d.ts
+/packages/*/tests/*.js
+/packages/*/tests/*.d.ts
+/packages/*/tests/temp*
+**/node_modules
+*.tgz
+/tsconfig.json.tpl
+/.eslintrc.json.tpl
+!tsconfig.json
+!.eslintrc.json
+yarn-error.log
+*.log
+.git
+yarn.lock
+.env.local
+.env.*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.vue.js
+*.vue.d.ts
+*.vue.js.map
+vue.config.d.ts
+vue.config.js.map
+.nyc_output
+coverage
+/*.tpl
+!.forestry
+!.vuepress
+!.github
+!.gitee
+!.gitlab
+.git
+
+*.tsbuildinfo
+tsconfig.esm.json.tpl
+
+.browserslistrc
+.nvmrc
+
+/.eslintignore
+/package.d.ts
+.nycrc
+.mocharc.yml
+#jest.config.js
+node_modules/.cache
+.yarn-integrity
+jest.config.d.ts
+jest.config.js.map
+/report.*.json
+*.js.map
+/now.json
+.nyc_output
+.coverage-cache
+.reify-cache
+*.spec.d.ts
+*.spec.js
+.nowignore
+*/**/.github
+!/.github
+!npm-shrinkwrap.json
+*.stat
+.vercel
+
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea/*/
+*.iml
+out
+gen### git2 template
+
+~ci.list.txt
+~ci.log.txt
+~ci.errors.txt
+
+*.stackdump
+*.bak
+*.old
+
+package-lock.json
+
+test/**/*.js
+test/**/*.d.ts
+test/*.js
+test/*.d.ts
+test/temp*
+
+tests/**/*.js
+tests/**/*.d.ts
+tests/*.js
+tests/*.d.ts
+tests/temp*
+### Gradle template
+.gradle
+/build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
+### Kotlin template
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+### JetBrains template
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+# Sensitive or high-churn files
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+
+# Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
+
+# CMake
+cmake-build-debug/
+cmake-build-release/
+
+# Mongo Explorer plugin
+.idea/**/mongoSettings.xml
+
+# File-based project format
+*.iws
+
+# IntelliJ
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Cursive Clojure plugin
+.idea/replstate.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Editor-based Rest Client
+.idea/httpRequests
+/_/
+!/.idea/runConfigurations/
+!/idea-run-typescript.iml
+!/releases/idea-run-typescript.jar
+!/.idea/runConfigurations/jar.xml
+!/.idea/runConfigurations/Plugin.xml
+.idea/vcs.xml
+.idea/workspace.xml
+!.idea/artifacts
+/.idea/kotlinc.xml
+/.idea/markdown-navigator.xml
+/.idea/markdown-navigator-enh.xml
+
+!.idea/runConfigurations/
+!.idea/runConfigurations/*
