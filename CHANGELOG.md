@@ -8,8 +8,11 @@
 ### Changes
 - Update plugin logo to match webdriver.io
 
+### Added
+- Run actions for Mocha test cases with @wdio/cli
+
 
 ## [Unreleased]
 
-### Added
-- Run actions for Mocha test cases with @wdio/cli
+### Changes
+- fix priority if both wdio/cli and mocha existed
