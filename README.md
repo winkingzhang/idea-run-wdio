@@ -1,8 +1,8 @@
 # idea-run-wdio
 
 ![Build](https://github.com/wenqingzhang/idea-run-wdio/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/16147-webdriverio.svg)](https://plugins.jetbrains.com/plugin/16147-webdriverio)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/16147-webdriverio.svg)](https://plugins.jetbrains.com/plugin/16147-webdriverio)
+[![Version](https://img.shields.io/jetbrains/plugin/v/16147.svg)](https://plugins.jetbrains.com/plugin/16147)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/16147.svg)](https://plugins.jetbrains.com/plugin/16147)
 
 
 <!-- Plugin description -->
@@ -31,7 +31,3 @@ NOTE: Initial only support Mocha framework
   using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
----
-Plugin based on the [IntelliJ Platform Plugin Template][template].
-
-[template]: https://github.com/JetBrains/intellij-platform-plugin-template
