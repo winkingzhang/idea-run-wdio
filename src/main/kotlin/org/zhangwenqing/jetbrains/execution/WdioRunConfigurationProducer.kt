@@ -27,6 +27,7 @@ import com.intellij.psi.util.PsiUtilCore
 import com.intellij.util.ObjectUtils
 import com.intellij.util.SmartList
 import com.intellij.util.containers.SmartHashSet
+import com.jetbrains.nodejs.mocha.execution.MochaRunConfiguration
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
 import org.zhangwenqing.jetbrains.WdioUtil
@@ -55,6 +56,18 @@ class WdioRunConfigurationProducer : JsTestRunConfigurationProducer<WdioRunConfi
 		  ?: return false
 		var runSettings: WdioRunSettings = elementRunInfo.runSettings
 
+		if (runSettings.wdioPackage?.isValid != true)
+		{
+			runSettings = runSettings.builder()
+			  .setWdioPackage(configuration.getWdioPackage())
+			  .build()
+
+			if (runSettings.wdioPackage?.isValid != true)
+			{
+				return false
+			}
+		}
+
 		if (StringUtil.isEmptyOrSpaces(runSettings.wdioConfigFilePath))
 		{
 			var compilerWdioOption: String? = getWdioConfigFilePath(runSettings, getOriginalPsiFile(element))
@@ -62,7 +75,9 @@ class WdioRunConfigurationProducer : JsTestRunConfigurationProducer<WdioRunConfi
 			{
 				compilerWdioOption = "wdio.conf.js"
 			}
-			runSettings = runSettings.builder().setWdioConfigFilePath(compilerWdioOption).build()
+			runSettings = runSettings.builder()
+			  .setWdioConfigFilePath(compilerWdioOption)
+			  .build()
 		}
 
 		configuration.setRunSettings(runSettings)
@@ -74,26 +89,21 @@ class WdioRunConfigurationProducer : JsTestRunConfigurationProducer<WdioRunConfi
 	private fun isActiveFor(element: PsiElement, context: ConfigurationContext): Boolean
 	{
 		val file = PsiUtilCore.getVirtualFile(element) ?: return false
-		if (!WdioUtil.getWdioPackage(element.project).isValid)
-		{
-			// make sure only active for wdio project
-			return false
-		}
 		if (isTestRunnerPackageAvailableFor(element, context))
 		{
 			return true
 		}
-		val roots: List<VirtualFile> = collectMochaTestRoots(element.project)
+		val roots: List<VirtualFile> = collectWdioTestRoots(element.project)
 		if (roots.isEmpty())
 		{
 			return false
 		}
-		val smartHashSet: SmartHashSet<VirtualFile?> = SmartHashSet()
+		val testSet = SmartHashSet<VirtualFile?>()
 		for (root in roots)
 		{
 			if (root.isDirectory)
 			{
-				smartHashSet.add(root)
+				testSet.add(root)
 				continue
 			}
 			if (root == file)
@@ -101,7 +111,7 @@ class WdioRunConfigurationProducer : JsTestRunConfigurationProducer<WdioRunConfi
 				return true
 			}
 		}
-		return VfsUtilCore.isUnder(file, smartHashSet)
+		return VfsUtilCore.isUnder(file, testSet)
 	}
 
 	override fun isConfigurationFromCompatibleContext(
@@ -127,10 +137,10 @@ class WdioRunConfigurationProducer : JsTestRunConfigurationProducer<WdioRunConfi
 			  other.configuration,
 			  PreferableRunConfiguration::class.java
 			)
-			if (otherRc != null && otherRc.isPreferredOver(self.configuration, self.sourceElement))
-			{
-				return false
-			}
+
+			return (otherRc == null
+			  || otherRc is MochaRunConfiguration
+			  || !otherRc.isPreferredOver(self.configuration, self.sourceElement))
 		}
 		return true
 	}
@@ -182,7 +192,7 @@ class WdioRunConfigurationProducer : JsTestRunConfigurationProducer<WdioRunConfi
 		}
 
 		@NotNull
-		private fun collectMochaTestRoots(project: Project): List<VirtualFile>
+		private fun collectWdioTestRoots(project: Project): List<VirtualFile>
 		{
 			val list = RunManager.getInstance(project)
 			  .getConfigurationsList((WdioConfigurationType.getInstance() as ConfigurationType))
@@ -234,8 +244,9 @@ class WdioRunConfigurationProducer : JsTestRunConfigurationProducer<WdioRunConfi
 			}
 
 			val wdioConfigFilePaths = arrayOf(
-			  "wdio.conf.js",
 			  "wdio.local.conf.js",
+			  "wdio.ios.conf.js",
+			  "wdio.conf.js",
 			)
 
 			for (configFilePath in wdioConfigFilePaths)

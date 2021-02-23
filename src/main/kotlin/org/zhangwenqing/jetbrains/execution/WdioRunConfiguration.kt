@@ -196,7 +196,7 @@ open class WdioRunConfiguration constructor(
 
 	override fun isPreferredOver(p0: RunConfiguration, p1: PsiElement): Boolean
 	{
-		return false
+		return myRunSettings.wdioPackage?.isValid!!
 	}
 
 	override fun onNewConfigurationCreated()
