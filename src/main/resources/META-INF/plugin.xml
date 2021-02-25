@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>org.zhangwenqing.wdio.idea-run-wdio</id>
     <name>WebdriverIO</name>
-    <vendor email="me@zhangwenqing.org" url="http://www.zhangwenqing.org">Zhang Wenqing</vendor>
+    <vendor email="me@zhangwenqing.org" url="http://www.zhangwenqing.org">Wenqing ZHANG</vendor>
     <version>2021.2.23-1</version>
     <category>Tools Integration</category>
 
