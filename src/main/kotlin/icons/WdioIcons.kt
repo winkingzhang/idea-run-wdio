@@ -8,18 +8,16 @@ object WdioIcons
 {
 	@JvmStatic
 	@NotNull
-	private fun load(@NotNull path: String, cacheKey: Long, flags: Int): Icon
+	private fun load(@NotNull path: String): Icon
 	{
 		@Suppress("UnstableApiUsage")
-		return IconManager.getInstance().loadRasterizedIcon(
+		return IconManager.getInstance().getIcon(
 		  path,
-		  WdioIcons::class.java.classLoader,
-		  cacheKey,
-		  flags
+		  WdioIcons::class.java
 		)
 	}
 
 	@JvmStatic
 	@NotNull
-	val wdio: Icon = load("icons/wdio.svg", Long.MAX_VALUE / 2, 0)
+	val wdio: Icon = load("icons/wdio.svg")
 }
