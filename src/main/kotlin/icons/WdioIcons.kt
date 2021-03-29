@@ -8,16 +8,10 @@ object WdioIcons
 {
 	@JvmStatic
 	@NotNull
-	private fun load(@NotNull path: String): Icon
-	{
-		@Suppress("UnstableApiUsage")
-		return IconManager.getInstance().getIcon(
-		  path,
-		  WdioIcons::class.java
-		)
-	}
+	private fun getIcon(@NotNull path: String) =
+	  IconManager.getInstance().getIcon(path, WdioIcons::class.java)
 
 	@JvmStatic
 	@NotNull
-	val wdio: Icon = load("icons/wdio.svg")
+	val wdio: Icon = getIcon("icons/wdio.svg")
 }
