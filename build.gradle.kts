@@ -17,7 +17,7 @@ plugins {
 	// Java support
 	java
 	// Kotlin support
-	kotlin("jvm") version "1.4.31"
+	kotlin("jvm") version "1.4.32"
 }
 
 // Import variables from gradle.properties file
