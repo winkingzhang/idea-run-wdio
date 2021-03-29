@@ -26,7 +26,7 @@ class WdioRerunFailedTestAction constructor(
 	}
 
 	@Nullable
-	override fun getRunProfile(environment: ExecutionEnvironment): MyRunProfile?
+	override fun getRunProfile(environment: ExecutionEnvironment): MyRunProfile
 	{
 		val configuration = myConsoleProperties.configuration as WdioRunConfiguration
 		val state = WdioRunProfileState(

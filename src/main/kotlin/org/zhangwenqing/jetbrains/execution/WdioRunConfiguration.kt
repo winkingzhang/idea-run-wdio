@@ -19,7 +19,6 @@ import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectFileIndex
 import com.intellij.openapi.util.InvalidDataException
-import com.intellij.openapi.util.NlsSafe
 import com.intellij.openapi.util.WriteExternalException
 import com.intellij.openapi.util.io.FileUtil
 import com.intellij.openapi.util.text.StringUtil
@@ -27,7 +26,6 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VfsUtilCore
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
-import com.intellij.util.ObjectUtils
 import com.intellij.util.containers.ContainerUtil
 import org.jdom.Element
 import org.jetbrains.annotations.NotNull
@@ -87,11 +85,6 @@ open class WdioRunConfiguration constructor(
 
 	fun getWdioPackage(): NodePackage
 	{
-		@Suppress("UnstableApiUsage")
-		if (RunManager.getInstance(project).isTemplate((this as RunConfiguration)))
-		{
-			return ObjectUtils.notNull(myRunSettings.wdioPackage, NodePackage(""))
-		}
 		var pkg: NodePackage? = myRunSettings.wdioPackage
 		if (pkg == null)
 		{
@@ -138,7 +131,7 @@ open class WdioRunConfiguration constructor(
 	@NotNull
 	override fun createTestConsoleProperties(executor: Executor): SMTRunnerConsoleProperties
 	{
-		return createTestConsoleProperties(executor, false)
+		return createTestConsoleProperties(executor, true)
 	}
 
 	fun createTestConsoleProperties(executor: Executor, withTerminalConsole: Boolean): WdioConsoleProperties
@@ -177,17 +170,9 @@ open class WdioRunConfiguration constructor(
 
 	fun setRunSettings(@NotNull wdioRunSettings: WdioRunSettings)
 	{
-		var runSettings = wdioRunSettings
-		val pkg = runSettings.wdioPackage
-		@Suppress("UnstableApiUsage")
-		if (pkg != null &&
-		  pkg.isEmptyPath &&
-		  RunManager.getInstance(project).isTemplate((this as RunConfiguration))
-		)
-		{
-			runSettings = runSettings.builder().setWdioPackage(null).build()
-		}
-		myRunSettings = runSettings
+		val pkg = wdioRunSettings.wdioPackage
+
+		myRunSettings = wdioRunSettings
 		if (pkg != null)
 		{
 			WdioUtil.setWdioPackage(project, pkg)
@@ -215,9 +200,7 @@ open class WdioRunConfiguration constructor(
 
 	companion object
 	{
-		@Suppress("UnstableApiUsage")
 		@NotNull
-		@NlsSafe
 		private fun getRelativePath(project: Project, path: String): String
 		{
 			val file: VirtualFile? = LocalFileFinder.findFile(path)
@@ -236,9 +219,7 @@ open class WdioRunConfiguration constructor(
 			return getLastPathComponent(path)
 		}
 
-		@Suppress("UnstableApiUsage")
 		@NotNull
-		@NlsSafe
 		private fun getLastPathComponent(path: String): String
 		{
 			val lastIndex = path.lastIndexOf('/')

@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
 
 
-const val FRAMEWORK_NAME = "MochaJavaScriptTestRunner";
+const val FRAMEWORK_NAME = "WdioJavaScriptTestRunner";
 
 class WdioConsoleProperties constructor(
   @NotNull configuration: WdioRunConfiguration,
