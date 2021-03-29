@@ -13,6 +13,8 @@
 ### Removed
 
 ### Fixed
+- Removed internal apis
+- Some bugs
 
 ### Security
 
