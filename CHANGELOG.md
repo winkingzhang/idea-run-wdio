@@ -12,6 +12,8 @@
 ### Removed
 
 ### Fixed
+- compatible to version 2021.1
+- improve stable
 
 ### Security
 
