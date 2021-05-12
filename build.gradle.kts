@@ -11,13 +11,13 @@ buildscript {
 
 plugins {
 	// gradle-intellij-plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
-	id("org.jetbrains.intellij") version "0.7.2"
+	id("org.jetbrains.intellij") version "0.7.3"
 	// gradle-changelog-plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
 	id("org.jetbrains.changelog") version "1.1.2"
 	// Java support
 	java
 	// Kotlin support
-	kotlin("jvm") version "1.4.32"
+	kotlin("jvm") version "1.5.0"
 }
 
 // Import variables from gradle.properties file
