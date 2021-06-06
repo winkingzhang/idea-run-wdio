@@ -49,7 +49,7 @@ class WdioRunProfileState constructor(
 		val interpreter: NodeJsInterpreter = this.runSettings.interpreterRef.resolveNotNull(this.project)
 		val commandLine = NodeCommandLineUtil.createCommandLineForTestTools()
 		NodeCommandLineUtil.configureCommandLine(commandLine, configurator, interpreter) {
-			configureCommandLine(commandLine, interpreter)
+			configureCommandLine(commandLine, interpreter, it)
 		}
 		val processHandler = NodeCommandLineUtil.createProcessHandler(commandLine, false)
 		val consoleProperties: WdioConsoleProperties = this.runConfiguration.createTestConsoleProperties(
@@ -84,7 +84,8 @@ class WdioRunProfileState constructor(
 	@Throws(ExecutionException::class)
 	private fun configureCommandLine(
 	  commandLine: GeneralCommandLine,
-	  interpreter: NodeJsInterpreter
+	  interpreter: NodeJsInterpreter,
+	  debugMode: Boolean
 	)
 	{
 		val nodeOptions: List<String> = ArrayList(commandLine.parametersList.parameters)
@@ -120,6 +121,9 @@ class WdioRunProfileState constructor(
 		commandLine.addParameter("--framework")
 		commandLine.addParameter("Mocha")
 
+		if (debugMode) {
+			commandLine.addParameter("--mochaOpts")
+		}
 
 		if (!StringUtil.isEmptyOrSpaces(this.runSettings.testFilePath))
 		{
