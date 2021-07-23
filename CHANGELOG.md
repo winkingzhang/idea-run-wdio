@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 ### Added
+- add framework supports (mocha, jasmine, cucumber)
 
 ### Changed
 
@@ -12,8 +13,10 @@
 ### Removed
 
 ### Fixed
+- improve stable
 
 ### Security
+
 ## [2021.4.8-0]
 ### Added
 
