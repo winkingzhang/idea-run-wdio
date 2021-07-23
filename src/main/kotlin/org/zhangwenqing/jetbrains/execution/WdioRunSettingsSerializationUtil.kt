@@ -17,6 +17,7 @@ const val WDIO_PACKAGE___KEY = "wdio-package"
 const val WORKING_DIRECTORY__KEY = "working-directory"
 const val PASS_PARENT_ENV__KEY = "pass-parent-env"
 const val WDIO_CONFIG_FILE_PATH__KEY = "wdio-config-file-path"
+const val FRAMEWORK__KEY = "wdio-framework"
 const val TEST_FILE__KEY = "test-file"
 const val TEST_NAMES__KEY = "test-names"
 const val TEST_LINE_NUMBERS__KEY = "test-line-numbers"
@@ -54,6 +55,8 @@ object WdioRunSettingsSerializationUtil
 
 		val extraWdioOptions: String = readTag(parent, WDIO_CONFIG_FILE_PATH__KEY)
 		builder.setWdioConfigFilePath(extraWdioOptions)
+
+		builder.setFramework(readTag(parent, FRAMEWORK__KEY))
 
 		builder.setTestFilePath(
 		  FileUtil.toSystemDependentName(
@@ -106,6 +109,7 @@ object WdioRunSettingsSerializationUtil
 		writeTag(parent, PASS_PARENT_ENV__KEY, runSettings.envData.isPassParentEnvs.toString())
 		EnvironmentVariablesComponent.writeExternal(parent, runSettings.envData.envs)
 		writeTag(parent, WDIO_CONFIG_FILE_PATH__KEY, runSettings.wdioConfigFilePath)
+		writeTag(parent, FRAMEWORK__KEY, runSettings.framework)
 
 		writeTag(parent, TEST_FILE__KEY, FileUtil.toSystemIndependentName(runSettings.testFilePath))
 		writeTestNames(parent, runSettings.testNames)

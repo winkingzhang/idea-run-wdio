@@ -119,7 +119,7 @@ class WdioRunProfileState constructor(
 		commandLine.addParameters(extraWdioOptionList)
 
 		commandLine.addParameter("--framework")
-		commandLine.addParameter("Mocha")
+		commandLine.addParameter(this.runSettings.framework)
 
 		if (debugMode) {
 			commandLine.addParameter("--mochaOpts")

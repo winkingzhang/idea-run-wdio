@@ -16,6 +16,10 @@ object WdioUtil
 
 	const val WDIO_PACKAGE_DIR__KEY: String = "nodejs.wdio.wdio_node_package_dir"
 
+	const val FRAMEWORK_MOCHA = "Mocha"
+	const val FRAMRWORK_JASMINE = "Jasmine"
+	const val FRAMRWORK_CUCUMBER = "Cucumber"
+
 	@NotNull
 	fun getWdioPackage(@NotNull project: Project): NodePackage
 	{

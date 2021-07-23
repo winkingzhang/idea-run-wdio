@@ -11,15 +11,14 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.options.ex.SingleConfigurableEditor
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.openapi.util.io.FileUtil
 import com.intellij.ui.RawCommandLineEditor
 import com.intellij.ui.components.fields.CommaSeparatedIntegersField
 import com.intellij.ui.components.fields.ExpandableTextField
-import com.intellij.util.ui.ComponentWithEmptyText
-import com.intellij.util.ui.FormBuilder
-import com.intellij.util.ui.SwingHelper
+import com.intellij.util.ui.*
 import com.intellij.webcore.ui.PathShortener
 import org.jetbrains.annotations.NotNull
 import org.zhangwenqing.jetbrains.WdioBundle
@@ -39,6 +38,7 @@ class WdioRunConfigurationEditor constructor(
 	private val myEnvironmentVariablesTextFieldWithBrowseButton = EnvironmentVariablesTextFieldWithBrowseButton()
 	private val myWdioPackageField = NodePackageField(myNodeInterpreterField, WdioUtil.PACKAGE_DESCRIPTOR, null)
 	private val myWdioConfigFiledWithBrowseButton = createWdioConfigFileTextField(project)
+	private val myFrameworkField = createFrameworkFieldEditor(project)
 	private val myTestFileTextFieldWithBrowseButton = createTestFileTextField(project)
 	private val myTestLineNumbersEditor = CommaSeparatedIntegersField()
 	private val myComponent = FormBuilder()
@@ -68,6 +68,10 @@ class WdioRunConfigurationEditor constructor(
 		(myWdioConfigFiledWithBrowseButton as JComponent)
 	  )
 	  .addLabeledComponent(
+		WdioBundle.message("wdio.run.framework.label"),
+		(myFrameworkField as JComponent)
+	  )
+	  .addLabeledComponent(
 		JavaScriptBundle.message("rc.testRunScope.testFile.label"),
 		(myTestFileTextFieldWithBrowseButton as JComponent)
 	  )
@@ -88,6 +92,7 @@ class WdioRunConfigurationEditor constructor(
 		myEnvironmentVariablesTextFieldWithBrowseButton.data = runSettings.envData
 		myWdioPackageField.selected = configuration.getWdioPackage()
 		myWdioConfigFiledWithBrowseButton.text = FileUtil.toSystemDependentName(runSettings.wdioConfigFilePath)
+		myFrameworkField.item = runSettings.framework
 		myTestFileTextFieldWithBrowseButton.text = FileUtil.toSystemDependentName(runSettings.testFilePath)
 		myTestLineNumbersEditor.value = ImmutableList.copyOf(runSettings.testLineNumbers)
 		updatePreferredWidth()
@@ -103,6 +108,7 @@ class WdioRunConfigurationEditor constructor(
 		builder.setEnvData(myEnvironmentVariablesTextFieldWithBrowseButton.data)
 		builder.setWdioPackage(myWdioPackageField.selected)
 		builder.setWdioConfigFilePath(PathShortener.getAbsolutePath(myWdioConfigFiledWithBrowseButton.textField))
+		builder.setFramework(myFrameworkField.item)
 		builder.setTestFilePath(PathShortener.getAbsolutePath(myTestFileTextFieldWithBrowseButton.textField))
 		builder.setTestLineNumbers(myTestLineNumbersEditor.value)
 		configuration.setRunSettings(builder.build())
@@ -124,6 +130,15 @@ class WdioRunConfigurationEditor constructor(
 			}, ModalityState.any())
 		}
 	}
+
+	private fun createFrameworkFieldEditor(project: Project): ComboBox<String>
+	{
+		val combo = ComboBox(arrayOf(WdioUtil.FRAMEWORK_MOCHA, WdioUtil.FRAMRWORK_JASMINE, WdioUtil.FRAMRWORK_CUCUMBER))
+		//TODO: auto detect current framework by installed framework packages
+		// combo.item = detectFramework(project) ?? WdioUtil.FRAMEWORK_MOCHA
+		return combo
+	}
+
 
 	companion object
 	{
