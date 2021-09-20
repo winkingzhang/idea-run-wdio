@@ -3,6 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
 	repositories {
+//		// use Aliyun mirror to resolve network issue in China
+//		maven("https://maven.aliyun.com/repository/public")
 		mavenCentral()
 		maven("https://dl.bintray.com/jetbrains/intellij-plugin-service")
 	}
@@ -10,13 +12,13 @@ buildscript {
 
 plugins {
 	// gradle-intellij-plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
-	id("org.jetbrains.intellij") version "1.1.3"
+	id("org.jetbrains.intellij") version "1.1.6"
 	// gradle-changelog-plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
-	id("org.jetbrains.changelog") version "1.2.0"
+	id("org.jetbrains.changelog") version "1.3.0"
 	// Java support
 	java
 	// Kotlin support
-	kotlin("jvm") version "1.5.21"
+	kotlin("jvm") version "1.5.31"
 }
 
 // Import variables from gradle.properties file
