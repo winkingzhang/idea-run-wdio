@@ -7,6 +7,7 @@ import com.intellij.javascript.nodejs.util.NodePackageField
 import com.intellij.lang.javascript.JavaScriptBundle
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.ModalityState
+import com.intellij.openapi.fileChooser.FileChooserDescriptor
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.options.ex.SingleConfigurableEditor
@@ -143,13 +144,18 @@ class WdioRunConfigurationEditor constructor(
 	companion object
 	{
 		private fun createWorkingDirTextField(project: Project): TextFieldWithBrowseButton =
-		  createTextFieldWithBrowseButton(project, JavaScriptBundle.message("rc.workingDirectory.browseDialogTitle"))
+		  createTextFieldWithBrowseButton(
+			project,
+			JavaScriptBundle.message("rc.workingDirectory.browseDialogTitle"),
+			FileChooserDescriptorFactory.createSingleFolderDescriptor()
+		  )
 
 		private fun createWdioConfigFileTextField(project: Project): TextFieldWithBrowseButton
 		{
 			val textFieldWithBrowseButton = createTextFieldWithBrowseButton(
 			  project,
-			  WdioBundle.message("wdio.run.config.workingDirectory.browseDialogTitle")
+			  WdioBundle.message("wdio.run.config.workingDirectory.browseDialogTitle"),
+			  FileChooserDescriptorFactory.createSingleFileDescriptor()
 			)
 			val field = textFieldWithBrowseButton.textField
 			(field as? ExpandableTextField)?.putClientProperty("monospaced", false)
@@ -161,16 +167,24 @@ class WdioRunConfigurationEditor constructor(
 		}
 
 		private fun createTestFileTextField(project: Project): TextFieldWithBrowseButton =
-		  createTextFieldWithBrowseButton(project, JavaScriptBundle.message("rc.testRunScope.testFile.browseTitle"))
+		  createTextFieldWithBrowseButton(
+			project,
+			JavaScriptBundle.message("rc.testRunScope.testFile.browseTitle"),
+			FileChooserDescriptorFactory.createSingleFileDescriptor()
+		  )
 
-		private fun createTextFieldWithBrowseButton(project: Project, dialogTitle: String): TextFieldWithBrowseButton
+		private fun createTextFieldWithBrowseButton(
+		  project: Project,
+		  dialogTitle: String,
+		  chooseDescription: FileChooserDescriptor
+		): TextFieldWithBrowseButton
 		{
 			val textFieldWithBrowseButton = TextFieldWithBrowseButton()
 			SwingHelper.installFileCompletionAndBrowseDialog(
 			  project,
 			  textFieldWithBrowseButton,
 			  dialogTitle,
-			  FileChooserDescriptorFactory.createSingleFolderDescriptor()
+			  chooseDescription
 			)
 			PathShortener.enablePathShortening(textFieldWithBrowseButton.textField, null)
 			return textFieldWithBrowseButton
