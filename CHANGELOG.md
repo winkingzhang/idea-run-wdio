@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 ### Added
+- overwrite default timeout when do debug
 
 ### Changed
 
@@ -12,11 +13,14 @@
 ### Removed
 
 ### Fixed
+- can't select wdio.conf.js in configuration UI
+- incorrect arguments if start debugging
 
 ### Security
+
 ## [2021.7.23-0]
 ### Added
-- add framework supports (mocha, jasmine, cucumber)
+- add framework supports (mocha, jasmine, cucumber) with manually config
 
 ### Changed
 
