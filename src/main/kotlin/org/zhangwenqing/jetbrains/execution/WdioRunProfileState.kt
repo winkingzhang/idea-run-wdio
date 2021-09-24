@@ -28,9 +28,11 @@ import com.intellij.util.execution.ParametersListUtil
 import com.jetbrains.nodejs.mocha.execution.MochaRunProfileState.getMochaMainJsFile
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
+import org.zhangwenqing.jetbrains.WdioUtil.FRAMEWORK_MOCHA
+import org.zhangwenqing.jetbrains.WdioUtil.FRAMRWORK_CUCUMBER
+import org.zhangwenqing.jetbrains.WdioUtil.FRAMRWORK_JASMINE
 import java.io.File
 import java.nio.charset.StandardCharsets
-import java.util.*
 
 
 class WdioRunProfileState constructor(
@@ -122,7 +124,21 @@ class WdioRunProfileState constructor(
 		commandLine.addParameter(this.runSettings.framework)
 
 		if (debugMode) {
-			commandLine.addParameter("--mochaOpts")
+			when (this.runSettings.framework) {
+				FRAMEWORK_MOCHA ->
+				{
+					commandLine.addParameter("--mochaOpts.timeout")
+				}
+				FRAMRWORK_JASMINE ->
+				{
+					commandLine.addParameter("--jasmineOpts.defaultTimeoutInterval")
+				}
+				FRAMRWORK_CUCUMBER ->
+				{
+					commandLine.addParameter("--cucumberOpts.timeout")
+				}
+			}
+			commandLine.addParameter("0")
 		}
 
 		if (!StringUtil.isEmptyOrSpaces(this.runSettings.testFilePath))
