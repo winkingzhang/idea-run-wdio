@@ -83,6 +83,10 @@ java {
 }
 
 tasks {
+	wrapper {
+		gradleVersion = "7.6"
+	}
+
 	withType<KotlinCompile> {
 		kotlinOptions.jvmTarget = "11"
 		kotlinOptions.freeCompilerArgs = listOf("-Xjvm-default=compatibility")
