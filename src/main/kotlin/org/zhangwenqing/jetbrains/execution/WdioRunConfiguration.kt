@@ -1,7 +1,6 @@
 package org.zhangwenqing.jetbrains.execution
 
 import com.intellij.execution.Executor
-import com.intellij.execution.RunManager
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.LocatableConfigurationBase
 import com.intellij.execution.configurations.RunConfiguration
@@ -77,11 +76,8 @@ open class WdioRunConfiguration constructor(
 		)
 	}
 
-	@Nullable
-	override fun getInterpreter(): NodeJsInterpreter?
-	{
-		return myRunSettings.interpreterRef.resolve(project)
-	}
+	override val interpreter: NodeJsInterpreter?
+		get() = myRunSettings.interpreterRef.resolve(project)
 
 	fun getWdioPackage(): NodePackage
 	{
@@ -181,7 +177,7 @@ open class WdioRunConfiguration constructor(
 
 	override fun isPreferredOver(p0: RunConfiguration, p1: PsiElement): Boolean
 	{
-		return myRunSettings.wdioPackage?.isValid!!
+		return myRunSettings.wdioPackage?.isValid(null, null)!!
 	}
 
 	override fun onNewConfigurationCreated()

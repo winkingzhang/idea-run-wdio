@@ -18,7 +18,6 @@ import com.intellij.javascript.nodejs.NodeConsoleAdditionalFilter
 import com.intellij.javascript.nodejs.NodeStackTraceFilter
 import com.intellij.javascript.nodejs.debug.NodeLocalDebuggableRunProfileStateSync
 import com.intellij.javascript.nodejs.interpreter.NodeJsInterpreter
-import com.intellij.javascript.nodejs.library.yarn.YarnPnpNodePackage
 import com.intellij.javascript.nodejs.util.NodePackage
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.project.Project
@@ -100,14 +99,8 @@ class WdioRunProfileState constructor(
 		NodeCommandLineUtil.configureUsefulEnvironment(commandLine)
 		NodeCommandLineUtil.prependNodeDirToPATH(commandLine, interpreter)
 		this.runSettings.envData.configureCommandLine(commandLine, true)
-		if (this.wdioPackage is YarnPnpNodePackage)
-		{
-			this.wdioPackage.addYarnRunToCommandLine(commandLine, this.project, interpreter, null)
-		}
-		else
-		{
-			commandLine.addParameter(getMochaMainJsFile(interpreter, this.wdioPackage).absolutePath)
-		}
+
+		commandLine.addParameter(getMochaMainJsFile(interpreter, this.wdioPackage).absolutePath)
 		commandLine.addParameters(nodeOptions)
 		commandLine.addParameters(ParametersListUtil.parse(this.runSettings.nodeOptions.trim()))
 

@@ -56,13 +56,13 @@ class WdioRunConfigurationProducer : JsTestRunConfigurationProducer<WdioRunConfi
 		  ?: return false
 		var runSettings: WdioRunSettings = elementRunInfo.runSettings
 
-		if (runSettings.wdioPackage?.isValid != true)
+		if (runSettings.wdioPackage?.isValid(null, null) != true)
 		{
 			runSettings = runSettings.builder()
 			  .setWdioPackage(configuration.getWdioPackage())
 			  .build()
 
-			if (runSettings.wdioPackage?.isValid != true)
+			if (runSettings.wdioPackage?.isValid(null, null) != true)
 			{
 				return false
 			}
